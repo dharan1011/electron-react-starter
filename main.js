@@ -2,16 +2,18 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
-
+console.log('Created Electron App Instance in main process',process.pid);
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration : true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
+  console.log('Created Chromium Instace in rendered process');
   console.log(__dirname);
   const startUrl = process.env.ELECTRON_START_URL || url.format({
       pathname : path.join(__dirname, './build/index.html'),
